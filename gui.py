@@ -18,7 +18,7 @@ import wx.adv
 class MyFrame1 ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Time-Based Brightness Control via sACN for Brompton & MVR", pos = wx.DefaultPosition, size = wx.Size( 562,685 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Time-Based Brightness Control via sACN for Brompton & MVR", pos = wx.DefaultPosition, size = wx.Size( 542,778 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.Size( -1,-1 ), wx.Size( -1,-1 ) )
 
@@ -29,7 +29,8 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer1.Add( self.m_staticText1, 0, wx.ALL, 5 )
 
-		self.m_textCtrlIP = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrlIP = wx.TextCtrl( self, wx.ID_ANY, u"192.168.0.50", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrlIP.SetMaxLength( 20 )
 		bSizer1.Add( self.m_textCtrlIP, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_notebook1 = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -46,10 +47,15 @@ class MyFrame1 ( wx.Frame ):
 
 		bSizer2.Add( self.m_staticText2, 0, wx.ALL, 5 )
 
-		self.m_staticText21 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"For MVR, Enable sACN", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText21 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"For MVR, Enable sACN, enable Channel 3 ONLY.", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText21.Wrap( -1 )
 
 		bSizer2.Add( self.m_staticText21, 0, wx.ALL, 5 )
+
+		self.m_staticText29 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Brightness ONLY!", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText29.Wrap( -1 )
+
+		bSizer2.Add( self.m_staticText29, 0, wx.ALL, 5 )
 
 		self.m_staticline1 = wx.StaticLine( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
 		bSizer2.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
@@ -81,8 +87,8 @@ class MyFrame1 ( wx.Frame ):
 
 		gSizer1.Add( self.m_staticText41, 0, wx.ALL, 5 )
 
-		self.m_spinCtrlChannel = wx.SpinCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 100,-1 ), wx.SP_ARROW_KEYS, 0, 5, 4 )
-		gSizer1.Add( self.m_spinCtrlChannel, 0, wx.ALL, 5 )
+		self.m_textCtrlChannel = wx.TextCtrl( sbSizer1.GetStaticBox(), wx.ID_ANY, u"4", wx.DefaultPosition, wx.Size( 100,-1 ), wx.TE_READONLY )
+		gSizer1.Add( self.m_textCtrlChannel, 0, wx.ALL, 5 )
 
 
 		sbSizer1.Add( gSizer1, 0, wx.EXPAND, 5 )
@@ -202,87 +208,97 @@ class MyFrame1 ( wx.Frame ):
 
 		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self.m_panel1, wx.ID_ANY, u"Brightness Control" ), wx.VERTICAL )
 
-		self.m_staticText37 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Set Time and Brightness", wx.DefaultPosition, wx.DefaultSize, 0 )
+		m_radioBox2Choices = [ u"Time-Based", u"Slider" ]
+		self.m_radioBox2 = wx.RadioBox( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Control", wx.DefaultPosition, wx.DefaultSize, m_radioBox2Choices, 1, wx.RA_SPECIFY_ROWS )
+		self.m_radioBox2.SetSelection( 0 )
+		sbSizer2.Add( self.m_radioBox2, 0, wx.ALL|wx.EXPAND, 5 )
+
+		sbSizer6 = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Time-Based Brightness Control" ), wx.VERTICAL )
+
+		self.m_staticText37 = wx.StaticText( sbSizer6.GetStaticBox(), wx.ID_ANY, u"Set Time and Brightness", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText37.Wrap( -1 )
 
-		sbSizer2.Add( self.m_staticText37, 0, wx.ALL|wx.EXPAND, 5 )
+		sbSizer6.Add( self.m_staticText37, 0, wx.ALL|wx.EXPAND, 5 )
 
 		gSizer9 = wx.GridSizer( 0, 2, 0, 0 )
 
-		self.m_textCtrlOnOff = wx.TextCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		self.m_textCtrlOnOff = wx.TextCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
 		gSizer9.Add( self.m_textCtrlOnOff, 0, wx.ALL, 5 )
 
-		self.m_textCtrlBrightness = wx.TextCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
+		self.m_textCtrlBrightness = wx.TextCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_READONLY )
 		gSizer9.Add( self.m_textCtrlBrightness, 0, wx.ALL, 5 )
 
 
-		sbSizer2.Add( gSizer9, 0, wx.EXPAND, 5 )
+		sbSizer6.Add( gSizer9, 0, wx.EXPAND, 5 )
 
-		self.m_toggleBtn1 = wx.ToggleButton( sbSizer2.GetStaticBox(), wx.ID_ANY, u"On/Off", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sbSizer2.Add( self.m_toggleBtn1, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_toggleBtn1 = wx.ToggleButton( sbSizer6.GetStaticBox(), wx.ID_ANY, u"On/Off", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer6.Add( self.m_toggleBtn1, 0, wx.ALL|wx.EXPAND, 5 )
 
 		fgSizer2 = wx.FlexGridSizer( 0, 3, 0, 0 )
 		fgSizer2.SetFlexibleDirection( wx.BOTH )
 		fgSizer2.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 
-		self.m_checkBox1 = wx.CheckBox( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m_checkBox1 = wx.CheckBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer2.Add( self.m_checkBox1, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_timePicker1 = wx.adv.TimePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
+		self.m_timePicker1 = wx.adv.TimePickerCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
 		fgSizer2.Add( self.m_timePicker1, 0, wx.ALL, 5 )
 
-		self.m_spinCtrl1 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
+		self.m_spinCtrl1 = wx.SpinCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
 		fgSizer2.Add( self.m_spinCtrl1, 0, wx.ALL, 5 )
 
-		self.m_checkBox2 = wx.CheckBox( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m_checkBox2 = wx.CheckBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer2.Add( self.m_checkBox2, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_timePicker2 = wx.adv.TimePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
+		self.m_timePicker2 = wx.adv.TimePickerCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
 		fgSizer2.Add( self.m_timePicker2, 0, wx.ALL, 5 )
 
-		self.m_spinCtrl2 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
+		self.m_spinCtrl2 = wx.SpinCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
 		fgSizer2.Add( self.m_spinCtrl2, 0, wx.ALL, 5 )
 
-		self.m_checkBox3 = wx.CheckBox( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m_checkBox3 = wx.CheckBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer2.Add( self.m_checkBox3, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_timePicker3 = wx.adv.TimePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
+		self.m_timePicker3 = wx.adv.TimePickerCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
 		fgSizer2.Add( self.m_timePicker3, 0, wx.ALL, 5 )
 
-		self.m_spinCtrl3 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
+		self.m_spinCtrl3 = wx.SpinCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
 		fgSizer2.Add( self.m_spinCtrl3, 0, wx.ALL, 5 )
 
-		self.m_checkBox4 = wx.CheckBox( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m_checkBox4 = wx.CheckBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer2.Add( self.m_checkBox4, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_timePicker4 = wx.adv.TimePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
+		self.m_timePicker4 = wx.adv.TimePickerCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
 		fgSizer2.Add( self.m_timePicker4, 0, wx.ALL, 5 )
 
-		self.m_spinCtrl4 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
+		self.m_spinCtrl4 = wx.SpinCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
 		fgSizer2.Add( self.m_spinCtrl4, 0, wx.ALL, 5 )
 
-		self.m_checkBox5 = wx.CheckBox( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.m_checkBox5 = wx.CheckBox( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		fgSizer2.Add( self.m_checkBox5, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_timePicker5 = wx.adv.TimePickerCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
+		self.m_timePicker5 = wx.adv.TimePickerCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.TP_DEFAULT  )
 		fgSizer2.Add( self.m_timePicker5, 0, wx.ALL, 5 )
 
-		self.m_spinCtrl5 = wx.SpinCtrl( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
+		self.m_spinCtrl5 = wx.SpinCtrl( sbSizer6.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 0, 255, 0 )
 		fgSizer2.Add( self.m_spinCtrl5, 0, wx.ALL, 5 )
 
 
-		sbSizer2.Add( fgSizer2, 0, wx.EXPAND, 5 )
+		sbSizer6.Add( fgSizer2, 0, wx.EXPAND, 5 )
 
-		self.m_staticline4 = wx.StaticLine( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-		sbSizer2.Add( self.m_staticline4, 0, wx.EXPAND |wx.ALL, 5 )
 
-		self.m_staticText42 = wx.StaticText( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Brightness Slider (Pending)", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText42.Wrap( -1 )
+		sbSizer2.Add( sbSizer6, 1, wx.EXPAND, 5 )
 
-		sbSizer2.Add( self.m_staticText42, 0, wx.ALL, 5 )
+		sbSizer5 = wx.StaticBoxSizer( wx.StaticBox( sbSizer2.GetStaticBox(), wx.ID_ANY, u"Brightness Slider" ), wx.VERTICAL )
 
-		self.m_slider1 = wx.Slider( sbSizer2.GetStaticBox(), wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
-		sbSizer2.Add( self.m_slider1, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_slider1 = wx.Slider( sbSizer5.GetStaticBox(), wx.ID_ANY, 255, 0, 255, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		sbSizer5.Add( self.m_slider1, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_textCtrlSlider = wx.TextCtrl( sbSizer5.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sbSizer5.Add( self.m_textCtrlSlider, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		sbSizer2.Add( sbSizer5, 1, wx.EXPAND, 5 )
 
 
 		gSizer7.Add( sbSizer2, 1, wx.EXPAND, 5 )
@@ -302,6 +318,11 @@ class MyFrame1 ( wx.Frame ):
 		self.m_staticText40.Wrap( -1 )
 
 		bSizer9.Add( self.m_staticText40, 0, wx.ALL, 5 )
+
+		self.m_staticText28 = wx.StaticText( self.m_panel3, wx.ID_ANY, u"v0.1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText28.Wrap( -1 )
+
+		bSizer9.Add( self.m_staticText28, 0, wx.ALL, 5 )
 
 
 		self.m_panel3.SetSizer( bSizer9 )
@@ -323,6 +344,7 @@ class MyFrame1 ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.m_radioBox1.Bind( wx.EVT_RADIOBOX, self.PlatformChange )
 		self.Bind( wx.EVT_TIMER, self.Timer, id=wx.ID_ANY )
 
 	def __del__( self ):
@@ -330,6 +352,9 @@ class MyFrame1 ( wx.Frame ):
 
 
 	# Virtual event handlers, overide them in your derived class
+	def PlatformChange( self, event ):
+		event.Skip()
+
 	def Timer( self, event ):
 		event.Skip()
 
