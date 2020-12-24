@@ -2,7 +2,7 @@
  Simple sACN GUI for LED processors of Brompton & MVR
 
 # Download
- * GitHub Releases
+ * [GitHub Releases](https://github.com/ronywangzhi/Simple-sACN-GUI/releases)
 
 # Credits
  * The sACN module for Python from [Hundemeier/sacn](https://github.com/Hundemeier/sacn).
