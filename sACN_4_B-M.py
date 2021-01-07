@@ -41,7 +41,7 @@ class sacnBrightness(gui.MyFrame1):
             sender.activate_output(universe)
             sender[universe].destination = IP
             sender[universe].dmx_data = (255, 255, 255, Brightness)
-            #time.sleep(5)
+            time.sleep(0.5)
             sender.stop()
 
             break
@@ -52,7 +52,7 @@ class sacnBrightness(gui.MyFrame1):
             sender.activate_output(universe)
             sender[universe].destination = IP
             sender[universe].dmx_data = (0, 0, Brightness)
-            #time.sleep(5)
+            time.sleep(0.5)
             sender.stop()
             
 
@@ -94,31 +94,33 @@ class sacnBrightness(gui.MyFrame1):
                 while self.m_timePicker1.GetTime() == NowTime and self.m_checkBox1.GetValue:
                     self.m_textCtrlBrightness.SetValue(str(NowTime)+" "+str(self.m_spinCtrl1.GetValue()))
                     Brightness = str(self.m_spinCtrl1.GetValue())
-                    self.DMXsent(IP,universe,int(Brightness))
+                    
+                    #self.DMXsent(IP,universe,int(Brightness))
                     break
 
                 while self.m_timePicker2.GetTime() == NowTime and self.m_checkBox2.GetValue:
                     self.m_textCtrlBrightness.SetValue(str(NowTime)+" "+str(self.m_spinCtrl2.GetValue()))
                     Brightness = str(self.m_spinCtrl2.GetValue())
-                    self.DMXsent(IP,universe,int(Brightness))
+                    #self.DMXsent(IP,universe,int(Brightness))
                     break
 
                 while self.m_timePicker3.GetTime() == NowTime and self.m_checkBox3.GetValue:
                     self.m_textCtrlBrightness.SetValue(str(NowTime)+" "+str(self.m_spinCtrl3.GetValue()))
                     Brightness = str(self.m_spinCtrl3.GetValue())
-                    self.DMXsent(IP,universe,int(Brightness))
+                    #self.DMXsent(IP,universe,int(Brightness))
                     break
 
                 while self.m_timePicker4.GetTime() == NowTime and self.m_checkBox4.GetValue:
                     self.m_textCtrlBrightness.SetValue(str(NowTime)+" "+str(self.m_spinCtrl4.GetValue()))
                     Brightness = str(self.m_spinCtrl4.GetValue())
-                    self.DMXsent(IP,universe,int(Brightness))
+                    #self.DMXsent(IP,universe,int(Brightness))
                     break
 
                 while self.m_timePicker5.GetTime() == NowTime and self.m_checkBox5.GetValue:
                     self.m_textCtrlBrightness.SetValue(str(NowTime)+" "+str(self.m_spinCtrl5.GetValue()))
                     Brightness = str(self.m_spinCtrl5.GetValue())
-                    self.DMXsent(IP,universe,int(Brightness))
+                    
+                    #self.DMXsent(IP,universe,int(Brightness))
                     break
 
             else:
@@ -130,6 +132,7 @@ class sacnBrightness(gui.MyFrame1):
             #brightness slider selected
             Brightness = self.m_slider1.GetValue()
             self.m_textCtrlSlider.SetValue(str(Brightness))
+            
             self.DMXsent(IP,universe,Brightness)
 
 

@@ -45,7 +45,7 @@
             <property name="minimum_size">-1,-1</property>
             <property name="name">MyFrame1</property>
             <property name="pos"></property>
-            <property name="size">542,778</property>
+            <property name="size">542,763</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title">Time-Based Brightness Control via sACN for Brompton &amp; MVR</property>

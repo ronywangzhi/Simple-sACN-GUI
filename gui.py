@@ -18,7 +18,7 @@ import wx.adv
 class MyFrame1 ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Time-Based Brightness Control via sACN for Brompton & MVR", pos = wx.DefaultPosition, size = wx.Size( 542,778 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Time-Based Brightness Control via sACN for Brompton & MVR", pos = wx.DefaultPosition, size = wx.Size( 542,763 ), style = wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.Size( -1,-1 ), wx.Size( -1,-1 ) )
 
